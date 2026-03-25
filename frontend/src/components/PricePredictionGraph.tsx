@@ -158,7 +158,11 @@ const PricePredictionGraph: React.FC<PricePredictionGraphProps> = ({ stocks }) =
           />
           <Legend wrapperStyle={{ color: '#fff' }} />
           <ReferenceLine
+<<<<<<< HEAD
             x={data.find(d => d.isToday)?.day}
+=======
+            x="📅 Mar 5 (Today)"
+>>>>>>> f7edace (my changes)
             stroke="#4ecdc4"
             strokeDasharray="5 5"
             strokeWidth={2}

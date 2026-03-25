@@ -15,7 +15,11 @@ interface AuthContextType {
   loading: boolean;
   portfolio: PortfolioItem[];
   portfolioBySector: { [key: string]: PortfolioItem[] };
+<<<<<<< HEAD
   register: (data: RegisterData) => Promise<void>;
+=======
+  register: (data: RegisterData) => Promise<any>;
+>>>>>>> f7edace (my changes)
   login: (data: LoginData) => Promise<void>;
   logout: () => Promise<void>;
   addToPortfolio: (item: PortfolioItem) => void;
@@ -72,8 +76,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [portfolio]);
 
   const register = async (data: RegisterData) => {
+<<<<<<< HEAD
     const res: AuthResponse = await authService.register(data);
     setUser(res.user);
+=======
+    return await authService.register(data);
+>>>>>>> f7edace (my changes)
   };
 
   const login = async (data: LoginData) => {

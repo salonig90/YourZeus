@@ -1,9 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+<<<<<<< HEAD
+=======
+from django.utils import timezone
+>>>>>>> f7edace (my changes)
 
 class User(AbstractUser):
     phone = models.CharField(max_length=15, blank=True, null=True)
     api_key = models.CharField(max_length=50, blank=True, null=True, unique=True)
+<<<<<<< HEAD
+=======
+    mpin = models.CharField(max_length=128, blank=True, null=True)  # Stored as Django hashed password
+    telegram_chat_id = models.CharField(max_length=50, blank=True, null=True)
+    otp_code = models.CharField(max_length=6, blank=True, null=True)
+    otp_expiry = models.DateTimeField(blank=True, null=True)
+>>>>>>> f7edace (my changes)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

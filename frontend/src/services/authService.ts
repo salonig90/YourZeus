@@ -1,9 +1,29 @@
 // authService.ts
 // Handles communication with backend authentication endpoints and token storage
 
+<<<<<<< HEAD
 const rawBase = process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE || 'http://127.0.0.1:8000';
 // Strip trailing /api or /api/ so we can append /api/auth/... uniformly
 const API_BASE = rawBase.replace(/\/api\/?$/, '');
+=======
+const getApiBase = () => {
+  // Check if we have an environment variable
+  const envBase = process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE;
+  if (envBase) {
+    return envBase.replace(/\/api\/?$/, '');
+  }
+  
+  // Fallback to localhost if we're in development
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return `http://${window.location.hostname}:8000`;
+  }
+  
+  // Final fallback
+  return 'http://localhost:8000';
+};
+
+const API_BASE = getApiBase();
+>>>>>>> f7edace (my changes)
 
 interface Tokens {
   access: string;
@@ -16,6 +36,16 @@ export interface AuthResponse {
   tokens: Tokens;
 }
 
+<<<<<<< HEAD
+=======
+export interface RegisterResponse {
+  success: boolean;
+  message?: string;
+  user?: any;
+  requires_login?: boolean;
+}
+
+>>>>>>> f7edace (my changes)
 export interface RegisterData {
   username: string;
   email: string;
@@ -44,6 +74,7 @@ const clearTokens = () => {
 const getAccessToken = () => localStorage.getItem('accessToken');
 
 export const authService = {
+<<<<<<< HEAD
   register: async (data: RegisterData): Promise<AuthResponse> => {
     const res = await fetch(`${API_BASE}/api/auth/register/`, {      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -61,6 +92,28 @@ export const authService = {
       body: JSON.stringify(data)
     });
     const body = await res.json();
+=======
+  register: async (data: RegisterData): Promise<RegisterResponse> => {
+    const res = await fetch(`${API_BASE}/api/auth/register/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw body;
+    }
+    return res.json();
+  },
+
+  login: async (data: LoginData): Promise<AuthResponse> => {
+    const res = await fetch(`${API_BASE}/api/auth/login/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const body = await res.json().catch(() => ({}));
+>>>>>>> f7edace (my changes)
     if (!res.ok) throw body;
     saveTokens(body.tokens);
     return body;
@@ -85,10 +138,40 @@ export const authService = {
   getCurrentUser: async (): Promise<any> => {
     const token = getAccessToken();
     if (!token) throw new Error('No access token');
+<<<<<<< HEAD
     const res = await fetch(`${API_BASE}/api/auth/me/`, {      headers: { Authorization: `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to fetch user');
     return res.json();
+=======
+    const res = await fetch(`${API_BASE}/api/auth/me/`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to fetch user');
+    return res.json();
+  },
+
+  setMpin: async (userId: number, mpin: string): Promise<any> => {
+    const res = await fetch(`${API_BASE}/api/auth/set-mpin/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, mpin })
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw body;
+    return body;
+  },
+
+  verifyMpin: async (userId: number, mpin: string): Promise<any> => {
+    const res = await fetch(`${API_BASE}/api/auth/verify-mpin/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, mpin })
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw body;
+    return body;
+>>>>>>> f7edace (my changes)
   }
 };
 
