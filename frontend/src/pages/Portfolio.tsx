@@ -3,7 +3,11 @@ import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+<<<<<<< HEAD
 import PortfolioClusterGraph from '../components/PortfolioClusterGraph';
+=======
+import { yfinanceService } from '../services/yfinanceService';
+>>>>>>> f7edace (my changes)
 
 const shimmer = keyframes`
   0% { background-position: -200% 0; }
@@ -437,7 +441,16 @@ const Portfolio: React.FC = () => {
       >
         <PortfolioValueDisplay>
           <div className="label">Total Portfolio Value</div>
+<<<<<<< HEAD
           <div className="value">${totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+=======
+          <div className="value">
+            {portfolio.every(s => !yfinanceService.isIndianStock(s.symbol)) && portfolio.length > 0 
+              ? `$${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+              : `₹${totalValue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+            }
+          </div>
+>>>>>>> f7edace (my changes)
           <div className={`change ${isPositive ? 'positive' : 'negative'}`}>
             {isPositive ? '▲' : '▼'} {Math.abs(parseFloat(avgChange))}% Average Return
           </div>
@@ -460,8 +473,11 @@ const Portfolio: React.FC = () => {
         </AnalyticsGrid>
       </SummarySection>
 
+<<<<<<< HEAD
       <PortfolioClusterGraph portfolio={portfolio} />
 
+=======
+>>>>>>> f7edace (my changes)
       {sectors.length > 0 ? (
         <>
           <SectionTitle
@@ -503,7 +519,13 @@ const Portfolio: React.FC = () => {
                       Holdings: <span>{stocks.length}</span>
                     </StatPill>
                     <StatPill>
+<<<<<<< HEAD
                       Value: <span>${sectorTotalValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+=======
+                      Value: <span>{sector.toLowerCase() === 'us_stocks' 
+                        ? `$${sectorTotalValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}` 
+                        : `₹${sectorTotalValue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`}</span>
+>>>>>>> f7edace (my changes)
                     </StatPill>
                   </StatsRow>
 
