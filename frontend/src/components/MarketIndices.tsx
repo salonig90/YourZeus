@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 const Container = styled.div`
   background: rgba(13, 13, 13, 0.6);
@@ -131,9 +132,10 @@ const MarketIndices: React.FC = () => {
   useEffect(() => {
     const fetchIndices = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/auth/market-indices/');
-        if (response.data.success) {
-          setIndices(response.data.data);
+        const res = await fetch(`${API_BASE_URL}/auth/market-indices/`);
+        const data = await res.json();
+        if (data?.success) {
+          setIndices(data.data);
         }
       } catch (error) {
         console.error('Error fetching market indices:', error);

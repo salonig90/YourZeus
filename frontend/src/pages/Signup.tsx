@@ -183,6 +183,24 @@ const SwitchText = styled.p`
   }
 `;
 
+const HelperLinks = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: ${props => props.theme.colors.textSecondary};
+
+  span {
+    color: #00f2fe;
+    cursor: pointer;
+    font-weight: 800;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
 const Message = styled(motion.div)<{ type: 'success' | 'error' }>`
   background: ${props => props.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'};
   border: 1px solid ${props => props.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'};
@@ -230,7 +248,7 @@ const Signup: React.FC = () => {
           password: formData.password
         });
       } else {
-        await register({
+        const res = await register({
           username: formData.email,
           email: formData.email,
           phone: formData.phone,
@@ -238,6 +256,16 @@ const Signup: React.FC = () => {
           password_confirm: formData.password,
           first_name: formData.name
         });
+
+        const createdUserId = (res as any)?.user?.id;
+        const createdEmail = (res as any)?.user?.email || formData.email;
+        if (createdUserId) {
+          setSuccess(true);
+          setTimeout(() => {
+            navigate('/mpin/create', { state: { userId: createdUserId, email: createdEmail } });
+          }, 600);
+          return;
+        }
       }
 
       setSuccess(true);
@@ -381,6 +409,12 @@ const Signup: React.FC = () => {
             {isLogin ? 'REGISTER NOW' : 'SIGN IN'}
           </span>
         </SwitchText>
+
+        {isLogin && (
+          <HelperLinks>
+            <span onClick={() => navigate('/forgot-access-key')}>Forgot Access Key?</span>
+          </HelperLinks>
+        )}
       </SignupContainer>
     </SignupWrapper>
   );

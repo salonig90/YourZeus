@@ -34,6 +34,7 @@ export interface RegisterResponse {
   success: boolean;
   message?: string;
   user?: any;
+  tokens?: Tokens;
   requires_login?: boolean;
 }
 
@@ -75,7 +76,11 @@ export const authService = {
       const body = await res.json().catch(() => ({}));
       throw body;
     }
-    return res.json();
+    const body = await res.json().catch(() => ({}));
+    if (body?.tokens?.access && body?.tokens?.refresh) {
+      saveTokens(body.tokens);
+    }
+    return body;
   },
 
   login: async (data: LoginData): Promise<AuthResponse> => {
@@ -132,6 +137,28 @@ export const authService = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id: userId, mpin })
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw body;
+    return body;
+  },
+
+  requestForgotPasswordOtp: async (email: string, telegramChatId?: string): Promise<any> => {
+    const res = await fetch(`${API_BASE}/api/auth/forgot-password/request/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, telegram_chat_id: telegramChatId }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw body;
+    return body;
+  },
+
+  verifyForgotPasswordOtp: async (email: string, otp: string, newPassword: string): Promise<any> => {
+    const res = await fetch(`${API_BASE}/api/auth/forgot-password/verify/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp, new_password: newPassword }),
     });
     const body = await res.json().catch(() => ({}));
     if (!res.ok) throw body;

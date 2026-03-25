@@ -72,7 +72,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [portfolio]);
 
   const register = async (data: RegisterData) => {
-    return await authService.register(data);
+    const res = await authService.register(data);
+    if (res && (res as any).user) {
+      setUser((res as any).user);
+    }
+    return res;
   };
 
   const login = async (data: LoginData) => {

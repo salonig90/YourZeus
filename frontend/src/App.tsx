@@ -14,6 +14,7 @@ import PortfolioSector from './pages/PortfolioSector';
 import Signup from './pages/Signup';
 import SectorStocks from './pages/SectorStocks';
 import MpinCreate from './pages/MpinCreate';
+import ForgotAccessKey from './pages/ForgotAccessKey';
 import { AuthProvider } from './contexts/AuthContext';
 import RequireAuth from './components/RequireAuth';
 import { theme } from './styles/theme';
@@ -151,6 +152,7 @@ function App() {
                   />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/mpin/create" element={<MpinCreate />} />
+                  <Route path="/forgot-access-key" element={<ForgotAccessKey />} />
                 </Routes>
               </MainContent>
             </AnimatePresence>
