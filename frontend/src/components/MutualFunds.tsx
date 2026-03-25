@@ -119,11 +119,7 @@ const MutualFunds: React.FC = () => {
   useEffect(() => {
     const fetchFunds = async () => {
       const data = await yfinanceService.getMutualFunds();
-<<<<<<< HEAD
       setFunds(data.slice(0, 20)); // Show top 20
-=======
-      setFunds(data.slice(0, 6)); // Show top 6
->>>>>>> f7edace (my changes)
       setLoading(false);
     };
     fetchFunds();
@@ -170,11 +166,7 @@ const MutualFunds: React.FC = () => {
             </FundHeader>
             
             <FundPrice>
-<<<<<<< HEAD
               ${fund.currentPrice.toLocaleString()}
-=======
-              {yfinanceService.formatStockPrice(fund.currentPrice, fund.symbol)}
->>>>>>> f7edace (my changes)
               <PriceChange positive={fund.change >= 0}>
                 {fund.change >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                 {Math.abs(fund.changePercent).toFixed(2)}%

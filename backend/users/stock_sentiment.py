@@ -7,16 +7,12 @@ VADER + rule-based sentiment analysis per stock.
 import re
 import logging
 import requests
-<<<<<<< HEAD
 import os
 import django
-=======
->>>>>>> f7edace (my changes)
 from bs4 import BeautifulSoup
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
 
-<<<<<<< HEAD
 # Setup Django environment if needed
 if not os.environ.get('DJANGO_SETTINGS_MODULE'):
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
@@ -24,8 +20,6 @@ if not os.environ.get('DJANGO_SETTINGS_MODULE'):
 
 from users.models import Stock
 
-=======
->>>>>>> f7edace (my changes)
 logger = logging.getLogger(__name__)
 
 # ─── Domain-specific keyword boosts ───
@@ -57,7 +51,6 @@ BEARISH_KEYWORDS = {
 # ─── Sector-specific news sources ───
 
 SECTOR_NEWS_SOURCES = {
-<<<<<<< HEAD
     'information technology': [
         {'name': 'Moneycontrol IT', 'url': 'https://www.moneycontrol.com/news/business/it/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
         {'name': 'ET IT', 'url': 'https://economictimes.indiatimes.com/tech/technology', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
@@ -87,41 +80,6 @@ SECTOR_NEWS_SOURCES = {
         {'name': 'ET FMCG', 'url': 'https://economictimes.indiatimes.com/industry/cons-products/fmcg', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
     ],
     'consumer services': [
-=======
-    'it': [
-        {'name': 'Moneycontrol IT', 'url': 'https://www.moneycontrol.com/news/business/it/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET IT', 'url': 'https://economictimes.indiatimes.com/tech/technology', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'banking': [
-        {'name': 'Moneycontrol Banking', 'url': 'https://www.moneycontrol.com/news/business/banks/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET Banking', 'url': 'https://economictimes.indiatimes.com/industry/banking/finance', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'automobile': [
-        {'name': 'Moneycontrol Auto', 'url': 'https://www.moneycontrol.com/news/business/automobile/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET Auto', 'url': 'https://economictimes.indiatimes.com/industry/auto', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'pharma': [
-        {'name': 'Moneycontrol Pharma', 'url': 'https://www.moneycontrol.com/news/business/pharma/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET Pharma', 'url': 'https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'energy': [
-        {'name': 'Moneycontrol Energy', 'url': 'https://www.moneycontrol.com/news/business/energy/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET Energy', 'url': 'https://economictimes.indiatimes.com/industry/energy', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'finance': [
-        {'name': 'Moneycontrol Finance', 'url': 'https://www.moneycontrol.com/news/business/finance/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET Finance', 'url': 'https://economictimes.indiatimes.com/markets/stocks/news', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'metals': [
-        {'name': 'Moneycontrol Metals', 'url': 'https://www.moneycontrol.com/news/business/metals/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET Metals', 'url': 'https://economictimes.indiatimes.com/industry/indl-goods/svs/metals-mining', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'fmcg': [
-        {'name': 'Moneycontrol FMCG', 'url': 'https://www.moneycontrol.com/news/business/consumer/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
-        {'name': 'ET FMCG', 'url': 'https://economictimes.indiatimes.com/industry/cons-products/fmcg', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
-    ],
-    'hospitality': [
->>>>>>> f7edace (my changes)
         {'name': 'Moneycontrol Hospitality', 'url': 'https://www.moneycontrol.com/news/business/hospitality/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
         {'name': 'ET Hospitality', 'url': 'https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
     ],
@@ -129,7 +87,6 @@ SECTOR_NEWS_SOURCES = {
         {'name': 'Moneycontrol Realty', 'url': 'https://www.moneycontrol.com/news/business/real-estate/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
         {'name': 'ET Real Estate', 'url': 'https://economictimes.indiatimes.com/industry/services/property-/-cstruction', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
     ],
-<<<<<<< HEAD
     'capital goods': [
         {'name': 'Moneycontrol Capital Goods', 'url': 'https://www.moneycontrol.com/news/tags/capital-goods.html', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
         {'name': 'ET Capital Goods', 'url': 'https://economictimes.indiatimes.com/industry/indl-goods/svs', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
@@ -144,8 +101,6 @@ SECTOR_NEWS_SOURCES = {
     'oil gas and consumable fuels': [
         {'name': 'Moneycontrol Oil & Gas', 'url': 'https://www.moneycontrol.com/news/tags/oil-and-gas.html', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
     ],
-=======
->>>>>>> f7edace (my changes)
     'us_stocks': [
         {'name': 'Moneycontrol US Markets', 'url': 'https://www.moneycontrol.com/news/business/markets/', 'selector': 'li.clearfix h2 a, .news_list li h2 a, .FL h2 a'},
         {'name': 'ET US Markets', 'url': 'https://economictimes.indiatimes.com/markets/stocks/news', 'selector': '.eachStory h3 a, .story_list h3 a, .data_list .title a'},
@@ -352,18 +307,12 @@ STOCK_NAME_MAP = {
     'AAPL': ['apple', 'aapl', 'iphone'],
     'MSFT': ['microsoft', 'msft', 'windows', 'azure'],
     'GOOGL': ['google', 'alphabet', 'googl'],
-<<<<<<< HEAD
     'GOOG': ['google', 'alphabet', 'goog'],
-=======
->>>>>>> f7edace (my changes)
     'AMZN': ['amazon', 'amzn', 'aws'],
     'META': ['meta', 'facebook', 'instagram', 'whatsapp'],
     'NVDA': ['nvidia', 'nvda'],
     'BRK-B': ['berkshire', 'brk', 'buffett'],
-<<<<<<< HEAD
     'BRK.B': ['berkshire', 'brk', 'buffett'],
-=======
->>>>>>> f7edace (my changes)
     'V': ['visa'],
     'MA': ['mastercard'],
     'HD': ['home depot'],
@@ -409,10 +358,7 @@ STOCK_NAME_MAP = {
     'PLD': ['prologis', 'pld'],
     'VNO': ['vornado', 'vno'],
     'AMB': ['amb', 'ambac'],
-<<<<<<< HEAD
     'AVGO': ['broadcom', 'avgo'],
-=======
->>>>>>> f7edace (my changes)
     'BRCM': ['broadcom', 'brcm'],
     'WMT': ['walmart', 'wmt'],
     'LLY': ['eli lilly', 'lly'],
@@ -505,10 +451,7 @@ STOCK_NAME_MAP = {
     'ICE': ['intercontinental exchange', 'ice'],
     'WMB': ['williams companies', 'wmb'],
     'MMC': ['marsh & mclennan', 'mmc'],
-<<<<<<< HEAD
     'MRSH': ['marsh & mclennan', 'mrsh'],
-=======
->>>>>>> f7edace (my changes)
     'FDX': ['fedex', 'fdx'],
     'ADP': ['adp'],
     'PWR': ['quanta services', 'pwr'],
@@ -577,88 +520,11 @@ STOCK_NAME_MAP = {
     'ALL': ['allstate', 'all']
 }
 
-<<<<<<< HEAD
 # ─── Sector stock symbols (moved to views.py/database) ───
 
 def get_sector_symbols(sector):
     """Retrieve stock symbols for a given sector from the database."""
     return list(Stock.objects.filter(sector=sector).values_list('symbol', flat=True))
-=======
-# ─── Sector stock symbols (same as views.py) ───
-
-SECTOR_STOCKS = {
-    'automobile': [
-        'BAJAJ-AUTO.NS', 'BHARATFORG.NS', 'BOSCHLTD.NS', 'EICHERMOT.NS', 'EXIDEIND.NS',
-        'HEROMOTOCO.NS', 'HYUNDAI.NS', 'MRF.NS', 'M&M.NS', 'MARUTI.NS',
-        'MOTHERSON.NS', 'SONACOMS.NS', 'TVSMOTOR.NS', 'TATAMOTORS.NS', 'TIINDIA.NS'
-    ],
-    'banking': [
-        'SBIN.NS', 'HDFCBANK.NS', 'ICICIBANK.NS', 'AXISBANK.NS', 'KOTAKBANK.NS',
-        'INDUSINDBK.NS', 'YESBANK.NS', 'BANKBARODA.NS', 'PNB.NS', 'CANBK.NS',
-        'UNIONBANK.NS', 'IDFCFIRSTB.NS', 'FEDERALBNK.NS', 'BANKINDIA.NS', 'INDIANB.NS'
-    ],
-    'finance': [
-        'BAJFINANCE.NS', 'BAJAJFINSV.NS', 'JIOFIN.NS', 'MUTHOOTFIN.NS', 'SHRIRAMFIN.NS',
-        'LICHSGFIN.NS', 'PFC.NS', 'RECLTD.NS', 'MOTILALOFS.NS', 'CHOLAFIN.NS',
-        'HDFCAMC.NS', 'HDFCLIFE.NS', 'SBILIFE.NS', 'ICICIGI.NS', 'PAYTM.NS',
-        'POLICYBZR.NS', 'IRFC.NS', 'IREDA.NS', 'HUDCO.NS', 'L&TFH.NS',
-        'M&MFIN.NS', 'BAJAJHFL.NS', 'MAXFSL.NS', 'SBICARD.NS', 'BSE.NS', '360ONE.NS'
-    ],
-    'energy': [
-        'RELIANCE.NS', 'NTPC.NS', 'POWERGRID.NS', 'TATAPOWER.NS', 'ADANIPOWER.NS',
-        'ADANIGREEN.NS', 'ADANIENSOL.NS', 'ONGC.NS', 'IOC.NS', 'BPCL.NS',
-        'HPCL.NS', 'GAIL.NS', 'COALINDIA.NS', 'OIL.NS', 'IGL.NS',
-        'ATGL.NS', 'NTPCGREEN.NS', 'TORNTPOWER.NS', 'JSWENERGY.NS'
-    ],
-    'pharma': [
-        'SUNPHARMA.NS', 'DRREDDY.NS', 'CIPLA.NS', 'DIVISLAB.NS', 'LUPIN.NS',
-        'AUROPHARMA.NS', 'BIOCON.NS', 'ZYDUSLIFE.NS', 'APOLLOHOSP.NS', 'FORTIS.NS',
-        'MAXHEALTH.NS', 'GLENMARK.NS', 'ALKEM.NS', 'MANKIND.NS', 'TORNTPHARM.NS'
-    ],
-    'fmcg': [
-        'HINDUNILVR.NS', 'ITC.NS', 'NESTLEIND.NS', 'BRITANNIA.NS', 'DABUR.NS',
-        'MARICO.NS', 'COLPAL.NS', 'GODREJCP.NS', 'TATACONSUM.NS', 'VBL.NS',
-        'PATANJALI.NS', 'UNITDSPR.NS'
-    ],
-    'metals': [
-        'TATASTEEL.NS', 'JSWSTEEL.NS', 'HINDALCO.NS', 'VEDL.NS', 'SAIL.NS',
-        'NMDC.NS', 'NATIONALUM.NS', 'HINDZINC.NS', 'JINDALSTEL.NS'
-    ],
-    'realty': [
-        'DLF.NS', 'GODREJPROP.NS', 'OBEROIREAL.NS', 'PRESTIGE.NS', 'PHOENIXLTD.NS', 'LODHA.NS'
-    ],
-    'it': [
-        'TCS.NS', 'INFY.NS', 'WIPRO.NS', 'HCLTECH.NS', 'TECHM.NS',
-        'LTIM.NS', 'PERSISTENT.NS', 'MPHASIS.NS', 'COFORGE.NS', 'OFSS.NS',
-        'KPITTECH.NS', 'TATAELXSI.NS', 'TATATECH.NS'
-    ],
-    'capital_goods': [
-        'ABB.NS', 'SIEMENS.NS', 'LT.NS', 'CUMMINSIND.NS', 'HAVELLS.NS',
-        'POLYCAB.NS', 'CGPOWER.NS', 'BEL.NS', 'BHEL.NS', 'HAL.NS',
-        'MAZDOCK.NS', 'KEI.NS', 'APLAPOLLO.NS', 'ASTRAL.NS', 'PREMIERENE.NS',
-        'WAREEENER.NS', 'ENRIN.NS'
-    ],
-    'telecom': [
-        'BHARTIARTL.NS', 'IDEA.NS', 'INDUSTOWER.NS', 'TATACOMM.NS', 'BHARTIHEXA.NS'
-    ],
-    'chemicals': [
-        'UPL.NS', 'SRF.NS', 'PIIND.NS', 'PIDILITIND.NS', 'COROMANDEL.NS', 'SOLARINDS.NS'
-    ],
-    'consumer_durables': [
-        'TITAN.NS', 'VOLTAS.NS', 'HAVELLS.NS', 'DIXON.NS', 'BLUESTARCO.NS', 'KALYANKJIL.NS'
-    ],
-    'construction': [
-        'ULTRACEMCO.NS', 'GRASIM.NS', 'AMBUJACEM.NS', 'ACC.NS', 'IRB.NS', 'RVNL.NS'
-    ],
-    'hospitality': [
-        'INDHOTEL.NS', 'ITCHOTELS.NS', 'IRCTC.NS', 'JUBLFOOD.NS', 'DMART.NS',
-        'TRENT.NS', 'SWIGGY.NS', 'NYKAA.NS', 'ZOMATO.NS'
-    ],
-    'us_stocks': [
-        'NVDA', 'AAPL', 'MSFT', 'AMZN', 'GOOGL', 'GOOG', 'META', 'BRCM', 'TSLA', 'BRK-B', 'WMT', 'LLY', 'JPM', 'XOM', 'V', 'JNJ', 'MU', 'MA', 'COST', 'ORCL', 'CVX', 'NFLX', 'ABBV', 'PLTR', 'BAC', 'PG', 'AMD', 'KO', 'HD', 'CAT', 'CSCO', 'GE', 'LRCX', 'AMAT', 'MRK', 'RTX', 'MS', 'PM', 'UNH', 'GS', 'WFC', 'TMUS', 'GEV', 'IBM', 'LIN', 'MCD', 'INTC', 'VZ', 'PEP', 'AXP', 'T', 'KLAC', 'C', 'AMGN', 'NEE', 'ABT', 'CRM', 'DIS', 'TMO', 'TJX', 'TXN', 'GILD', 'ISRG', 'SCHW', 'ANET', 'APH', 'COP', 'PFE', 'BA', 'UBER', 'DE', 'ADI', 'APP', 'BLK', 'LMT', 'HON', 'UNP', 'QCOM', 'ETN', 'BKNG', 'WELL', 'DHR', 'PANW', 'SYK', 'SPGI', 'LOW', 'INTU', 'CB', 'ACN', 'PGR', 'PLD', 'BMY', 'NOW', 'VRTX', 'PH', 'COF', 'MDT', 'HCA', 'CME', 'MCK', 'MO', 'GLW', 'SBUX', 'SNDK', 'SO', 'CMCSA', 'NEM', 'CRWD', 'BSX', 'CEG', 'DELL', 'ADBE', 'NOC', 'WDC', 'DUK', 'EQIX', 'GD', 'WM', 'HWM', 'STX', 'CVS', 'TT', 'ICE', 'WMB', 'BX', 'MMC', 'MAR', 'FDX', 'ADP', 'PWR', 'AMT', 'UPS', 'PNC', 'SNPS', 'KKR', 'USB', 'JCI', 'BK', 'CDNS', 'NKE', 'REGN', 'MCO', 'ABNB', 'SHW', 'MSI', 'FCX', 'EOG', 'MMM', 'ITW', 'CMI', 'ORLY', 'KMI', 'ECL', 'MNST', 'MDLZ', 'EMR', 'CTAS', 'VLO', 'RCL', 'CSX', 'PSX', 'SLB', 'AON', 'CI', 'MPC', 'ROST', 'CL', 'DASH', 'WBD', 'AEP', 'RSG', 'CRH', 'HLT', 'TDG', 'LHX', 'GM', 'APO', 'ELV', 'TRV', 'HOOD', 'COR', 'NSC', 'APD', 'FTNT', 'SPG', 'SRE', 'OXY', 'BKR', 'DLR', 'PCAR', 'TEL', 'O', 'OKE', 'AJG', 'AFL', 'TFC', 'CIEN', 'AZO', 'FANG', 'ALL'
-    ]
-}
->>>>>>> f7edace (my changes)
 
 # ─── Fallback headlines per sector ───
 
@@ -885,7 +751,6 @@ def scrape_sector_headlines(sector):
 
 def match_headline_to_stock(headline_lower, sector):
     """Match a headline to a specific stock symbol in the sector."""
-<<<<<<< HEAD
     stocks = Stock.objects.filter(sector=sector)
     matched_stocks = []
 
@@ -903,21 +768,6 @@ def match_headline_to_stock(headline_lower, sector):
         if brand in headline_lower:
             matched_stocks.append(stock.symbol)
             continue
-=======
-    sector_symbols = SECTOR_STOCKS.get(sector, [])
-    matched_stocks = []
-
-    for symbol in sector_symbols:
-        keywords = STOCK_NAME_MAP.get(symbol, [])
-        # Also add the raw symbol (without .NS) as a keyword
-        raw_symbol = symbol.replace('.NS', '').lower()
-        all_keywords = keywords + [raw_symbol]
-
-        for kw in all_keywords:
-            if kw in headline_lower:
-                matched_stocks.append(symbol)
-                break
->>>>>>> f7edace (my changes)
 
     # If no specific stock matched, assign to "sector" (applies to all)
     return matched_stocks if matched_stocks else ['sector']
@@ -985,11 +835,7 @@ def analyze_headlines(headlines, sector):
 
 def aggregate_per_stock(analyzed_headlines, sector):
     """Aggregate sentiment per stock in the sector."""
-<<<<<<< HEAD
     sector_symbols = get_sector_symbols(sector)
-=======
-    sector_symbols = SECTOR_STOCKS.get(sector, [])
->>>>>>> f7edace (my changes)
     stock_sentiments = {}
 
     for symbol in sector_symbols:

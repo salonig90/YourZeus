@@ -1,11 +1,6 @@
 // authService.ts
 // Handles communication with backend authentication endpoints and token storage
 
-<<<<<<< HEAD
-const rawBase = process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE || 'http://127.0.0.1:8000';
-// Strip trailing /api or /api/ so we can append /api/auth/... uniformly
-const API_BASE = rawBase.replace(/\/api\/?$/, '');
-=======
 const getApiBase = () => {
   // Check if we have an environment variable
   const envBase = process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE;
@@ -23,7 +18,6 @@ const getApiBase = () => {
 };
 
 const API_BASE = getApiBase();
->>>>>>> f7edace (my changes)
 
 interface Tokens {
   access: string;
@@ -36,8 +30,6 @@ export interface AuthResponse {
   tokens: Tokens;
 }
 
-<<<<<<< HEAD
-=======
 export interface RegisterResponse {
   success: boolean;
   message?: string;
@@ -45,7 +37,6 @@ export interface RegisterResponse {
   requires_login?: boolean;
 }
 
->>>>>>> f7edace (my changes)
 export interface RegisterData {
   username: string;
   email: string;
@@ -74,25 +65,6 @@ const clearTokens = () => {
 const getAccessToken = () => localStorage.getItem('accessToken');
 
 export const authService = {
-<<<<<<< HEAD
-  register: async (data: RegisterData): Promise<AuthResponse> => {
-    const res = await fetch(`${API_BASE}/api/auth/register/`, {      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    const body = await res.json();
-    if (!res.ok) throw body;
-    saveTokens(body.tokens);
-    return body;
-  },
-
-  login: async (data: LoginData): Promise<AuthResponse> => {
-    const res = await fetch(`${API_BASE}/api/auth/login/`, {      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    const body = await res.json();
-=======
   register: async (data: RegisterData): Promise<RegisterResponse> => {
     const res = await fetch(`${API_BASE}/api/auth/register/`, {
       method: 'POST',
@@ -113,7 +85,6 @@ export const authService = {
       body: JSON.stringify(data)
     });
     const body = await res.json().catch(() => ({}));
->>>>>>> f7edace (my changes)
     if (!res.ok) throw body;
     saveTokens(body.tokens);
     return body;
@@ -138,12 +109,6 @@ export const authService = {
   getCurrentUser: async (): Promise<any> => {
     const token = getAccessToken();
     if (!token) throw new Error('No access token');
-<<<<<<< HEAD
-    const res = await fetch(`${API_BASE}/api/auth/me/`, {      headers: { Authorization: `Bearer ${token}` }
-    });
-    if (!res.ok) throw new Error('Failed to fetch user');
-    return res.json();
-=======
     const res = await fetch(`${API_BASE}/api/auth/me/`, {
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -171,7 +136,6 @@ export const authService = {
     const body = await res.json().catch(() => ({}));
     if (!res.ok) throw body;
     return body;
->>>>>>> f7edace (my changes)
   }
 };
 

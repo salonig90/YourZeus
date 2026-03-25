@@ -13,10 +13,7 @@ import Portfolio from './pages/Portfolio';
 import PortfolioSector from './pages/PortfolioSector';
 import Signup from './pages/Signup';
 import SectorStocks from './pages/SectorStocks';
-<<<<<<< HEAD
-=======
 import MpinCreate from './pages/MpinCreate';
->>>>>>> f7edace (my changes)
 import { AuthProvider } from './contexts/AuthContext';
 import RequireAuth from './components/RequireAuth';
 import { theme } from './styles/theme';
@@ -153,10 +150,7 @@ function App() {
                     }
                   />
                   <Route path="/signup" element={<Signup />} />
-<<<<<<< HEAD
-=======
                   <Route path="/mpin/create" element={<MpinCreate />} />
->>>>>>> f7edace (my changes)
                 </Routes>
               </MainContent>
             </AnimatePresence>

@@ -18,23 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from users.views import activity_dashboard
 
-<<<<<<< HEAD
-=======
 from django.conf import settings
 from django.conf.urls.static import static
 
->>>>>>> f7edace (my changes)
 urlpatterns = [
     path('', activity_dashboard, name='root_dashboard'),
     path('admin/', admin.site.urls),
     path('api/auth/', include('users.urls')),
-<<<<<<< HEAD
-]
-=======
     path('api/chat/', include('chatbot.urls')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
->>>>>>> f7edace (my changes)

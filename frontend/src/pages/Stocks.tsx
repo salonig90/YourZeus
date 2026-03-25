@@ -435,7 +435,6 @@ const Stocks: React.FC = () => {
 const sectors = [
   {
     id: 1,
-<<<<<<< HEAD
     sectorId: 'automobile and auto components',
     name: 'Auto & Components',
     icon: '🚗',
@@ -456,123 +455,10 @@ const sectors = [
   },
   {
     id: 3,
-=======
-    sectorId: 'automobile',
-    name: 'Automobile',
-    icon: '🚗',
-    accent: '#00f2fe',
-    description: 'Leading automotive companies and electric vehicle manufacturers driving the future of transportation.',
-    tags: ['EV', 'Manufacturing', 'Global'],
-    stats: { companies: '15', growth: '+8.2%', marketCap: '$2.1T' }
-  },
-  {
-    id: 2,
-    sectorId: 'banking',
-    name: 'Banking',
-    icon: '🏦',
-    accent: '#4facfe',
-    description: 'Global banking institutions, investment banks and financial intermediaries powering economic growth.',
-    tags: ['PSU', 'Private', 'Nifty 50'],
-    stats: { companies: '15', growth: '+5.3%', marketCap: '$3.9T' }
-  },
-  {
-    id: 3,
-    sectorId: 'finance',
-    name: 'Finance',
-    icon: '💰',
-    accent: '#b388ff',
-    description: 'Financial services, investment firms, insurance companies and fintech innovators transforming finance.',
-    tags: ['Fintech', 'Insurance', 'NBFC'],
-    stats: { companies: '26', growth: '+6.8%', marketCap: '$4.5T' }
-  },
-  {
-    id: 4,
-    sectorId: 'energy',
-    name: 'Energy',
-    icon: '⚡',
-    accent: '#ff9100',
-    description: 'Oil, gas, power generation, and renewable energy companies driving global energy infrastructure.',
-    tags: ['Renewable', 'Oil & Gas', 'Solar'],
-    stats: { companies: '19', growth: '+9.1%', marketCap: '$3.2T' }
-  },
-  {
-    id: 5,
-    sectorId: 'pharma',
-    name: 'Pharma',
-    icon: '💊',
-    accent: '#00ffa3',
-    description: 'Pharmaceutical companies, biotech firms, and healthcare innovators revolutionizing medicine.',
-    tags: ['Biotech', 'Generic', 'R&D'],
-    stats: { companies: '15', growth: '+7.4%', marketCap: '$2.8T' }
-  },
-  {
-    id: 6,
-    sectorId: 'fmcg',
-    name: 'FMCG',
-    icon: '🛒',
-    accent: '#e040fb',
-    description: 'Fast-moving consumer goods, food, beverages and personal care brands serving daily needs.',
-    tags: ['Consumer', 'Food', 'Personal Care'],
-    stats: { companies: '12', growth: '+4.9%', marketCap: '$1.5T' }
-  },
-  {
-    id: 7,
-    sectorId: 'metals',
-    name: 'Metals',
-    icon: '⛏️',
-    accent: '#78909c',
-    description: 'Steel, aluminum, mining and mineral processing companies supplying to global industries.',
-    tags: ['Mining', 'Steel', 'Aluminum'],
-    stats: { companies: '9', growth: '+11.2%', marketCap: '$2.3T' }
-  },
-  {
-    id: 8,
-    sectorId: 'realty',
-    name: 'Realty',
-    icon: '🏗️',
-    accent: '#ff5252',
-    description: 'Real estate investment trusts, property developers, and construction companies.',
-    tags: ['REIT', 'Commercial', 'Residential'],
-    stats: { companies: '6', growth: '+10.4%', marketCap: '$1.9T' }
-  },
-  {
-    id: 9,
-    sectorId: 'it',
-    name: 'IT',
-    icon: '💻',
-    accent: '#00b0ff',
-    description: 'Software services, product companies and technology consultants driving digital transformation.',
-    tags: ['Software', 'Cloud', 'AI'],
-    stats: { companies: '13', growth: '+12.1%', marketCap: '$4.2T' }
-  },
-  {
-    id: 10,
-    sectorId: 'capital_goods',
-    name: 'Capital Goods',
-    icon: '🏭',
-    accent: '#ff4081',
-    description: 'Industrial manufacturing, heavy engineering, and infrastructure equipment companies.',
-    tags: ['Industrial', 'Manufacturing', 'Infrastructure'],
-    stats: { companies: '17', growth: '+15.5%', marketCap: '$1.7T' }
-  },
-  {
-    id: 11,
-    sectorId: 'telecom',
-    name: 'Telecom',
-    icon: '📡',
-    accent: '#536dfe',
-    description: 'Telecommunications services, network infrastructure and communication providers.',
-    tags: ['5G', 'Network', 'Connectivity'],
-    stats: { companies: '5', growth: '+6.2%', marketCap: '$1.1T' }
-  },
-  {
-    id: 12,
->>>>>>> f7edace (my changes)
     sectorId: 'chemicals',
     name: 'Chemicals',
     icon: '🧪',
     accent: '#76ff03',
-<<<<<<< HEAD
     description: 'Specialty chemicals, agrochemicals and industrial chemicals.',
     tags: ['Specialty', 'Agrochem'],
     stats: { companies: 'Dynamic', growth: '+14.2%', marketCap: 'TBD' }
@@ -726,51 +612,6 @@ const sectors = [
     description: 'Top US companies across technology, finance, and consumer sectors.',
     tags: ['NASDAQ', 'NYSE', 'Global'],
     stats: { companies: 'Dynamic', growth: '+12.4%', marketCap: 'TBD' }
-=======
-    description: 'Specialty chemicals, agrochemicals and industrial chemical manufacturers.',
-    tags: ['Agrochem', 'Specialty', 'Export'],
-    stats: { companies: '6', growth: '+14.2%', marketCap: '$0.8T' }
-  },
-  {
-    id: 13,
-    sectorId: 'consumer_durables',
-    name: 'Durables',
-    icon: '🧺',
-    accent: '#ffd740',
-    description: 'Consumer appliances, electronics, and lifestyle products for modern living.',
-    tags: ['Appliances', 'Electronics', 'Lifestyle'],
-    stats: { companies: '6', growth: '+9.5%', marketCap: '$0.6T' }
-  },
-  {
-    id: 14,
-    sectorId: 'construction',
-    name: 'Construction',
-    icon: '🏗️',
-    accent: '#ff6e40',
-    description: 'Cement, infrastructure construction and heavy civil engineering projects.',
-    tags: ['Cement', 'Infra', 'EPC'],
-    stats: { companies: '6', growth: '+13.8%', marketCap: '$1.4T' }
-  },
-  {
-    id: 15,
-    sectorId: 'hospitality',
-    name: 'Hospitality',
-    icon: '🏨',
-    accent: '#7c4dff',
-    description: 'Hotels, restaurants, travel services and food delivery platforms.',
-    tags: ['Hotels', 'Food Delivery', 'Travel'],
-    stats: { companies: '9', growth: '+18.4%', marketCap: '$0.9T' }
-  },
-  {
-    id: 16,
-    sectorId: 'us_stocks',
-    name: 'US Stocks',
-    icon: '🇺🇸',
-    accent: '#00e5ff',
-    description: 'Direct investment in top US-listed companies like Apple, Microsoft, and Tesla.',
-    tags: ['NYSE', 'NASDAQ', 'S&P 500'],
-    stats: { companies: '20', growth: '+14.2%', marketCap: '$30T+' }
->>>>>>> f7edace (my changes)
   }
 ];
 
