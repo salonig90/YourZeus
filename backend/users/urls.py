@@ -20,12 +20,19 @@ urlpatterns = [
     path('stocks/sector/<str:sector>/sentiment/', views.get_stock_sentiment, name='stock_sentiment'),
     path('admin/stocks/', views.manage_stocks, name='manage_stocks'),
     path('admin/stocks/<str:symbol>/', views.manage_stocks, name='remove_stock'),
+<<<<<<< HEAD
     path('market-indices/', views.get_market_indices, name='get_market_indices'),
     path('news/', views.get_news, name='get_news'),
+=======
+>>>>>>> 7bc85fc (Resolved merge)
     # MPIN endpoints
     path('set-mpin/', views.set_mpin, name='set_mpin'),
     path('verify-mpin/', views.verify_mpin, name='verify_mpin'),
     # Forgot Password (Access Key) endpoints
     path('forgot-password/request/', views.request_forgot_password_otp, name='forgot_password_request'),
     path('forgot-password/verify/', views.verify_forgot_password_otp, name='forgot_password_verify'),
+<<<<<<< HEAD
 ]
+=======
+]
+>>>>>>> 7bc85fc (Resolved merge)

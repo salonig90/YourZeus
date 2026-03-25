@@ -555,6 +555,7 @@ const SectorStocks: React.FC = () => {
   const isUS = sector === 'us_stocks';
   const sectorName = sector.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
+<<<<<<< HEAD
   const formatCurrency = (val: number) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
@@ -574,6 +575,24 @@ const SectorStocks: React.FC = () => {
       if (val >= 1e7) return `₹${(val / 1e7).toFixed(2)}Cr`;
       if (val >= 1e5) return `₹${(val / 1e5).toFixed(2)}L`;
       return `₹${val.toLocaleString('en-IN')}`;
+=======
+  const formatCurrency = (val: number, symbol: string) => {
+    return yfinanceService.formatStockPrice(val, symbol);
+  };
+
+  const formatLargeNumber = (val: number, symbol: string) => {
+    const isIndian = yfinanceService.isIndianStock(symbol);
+    if (isIndian) {
+      if (val >= 1e12) return `₹${(val / 1e12).toFixed(2)}T`;
+      if (val >= 1e9) return `₹${(val / 1e9).toFixed(2)}B`;
+      if (val >= 1e6) return `₹${(val / 1e6).toFixed(2)}M`;
+      return `₹${val.toLocaleString('en-IN')}`;
+    } else {
+      if (val >= 1e12) return `$${(val / 1e12).toFixed(2)}T`;
+      if (val >= 1e9) return `$${(val / 1e9).toFixed(2)}B`;
+      if (val >= 1e6) return `$${(val / 1e6).toFixed(2)}M`;
+      return `$${val.toLocaleString('en-US')}`;
+>>>>>>> 7bc85fc (Resolved merge)
     }
   };
 
@@ -751,7 +770,11 @@ const SectorStocks: React.FC = () => {
       >
         <SearchInput
           type="text"
+<<<<<<< HEAD
           placeholder={`Search ${isUS ? 'US' : 'Indian'} ${sectorName} companies (e.g., ${isUS ? 'NVDA, AAPL, MSFT' : (sector === 'it' ? 'HCL' : 'TATA')})`}
+=======
+          placeholder={`Search ${isUS ? 'US' : 'Indian'} ${sectorName} companies (e.g., ${isUS ? 'AAPL' : (sector === 'it' ? 'HCL' : 'TATA')})`}
+>>>>>>> 7bc85fc (Resolved merge)
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -819,17 +842,30 @@ const SectorStocks: React.FC = () => {
                   <tr key={index}>
                     <td>{stock.name}</td>
                     <td>{stock.symbol}</td>
+<<<<<<< HEAD
                     <td>{formatCurrency(stock.currentPrice ?? 0)}</td>
                     <td style={{ color: (stock.change ?? 0) >= 0 ? '#4caf50' : '#f44336' }}>
                       {(stock.change ?? 0) >= 0 ? '+' : ''}{formatCurrency(stock.change ?? 0)}
+=======
+                    <td>{formatCurrency(stock.currentPrice ?? 0, stock.symbol)}</td>
+                    <td style={{ color: (stock.change ?? 0) >= 0 ? '#4caf50' : '#f44336' }}>
+                      {(stock.change ?? 0) >= 0 ? '+' : ''}{formatCurrency(stock.change ?? 0, stock.symbol)}
+>>>>>>> 7bc85fc (Resolved merge)
                     </td>
                     <td style={{ color: (stock.changePercent ?? 0) >= 0 ? '#4caf50' : '#f44336' }}>
                       {(stock.changePercent ?? 0) >= 0 ? '+' : ''}{(stock.changePercent ?? 0).toFixed(2)}%
                     </td>
+<<<<<<< HEAD
                     <td>{formatCurrency(stock.dayHigh ?? 0)}</td>
                     <td>{formatCurrency(stock.dayLow ?? 0)}</td>
                     <td>{(stock.peRatio ?? 0).toFixed(2)}</td>
                     <td>{formatLargeNumber(stock.marketCap ?? 0)}</td>
+=======
+                    <td>{formatCurrency(stock.dayHigh ?? 0, stock.symbol)}</td>
+                    <td>{formatCurrency(stock.dayLow ?? 0, stock.symbol)}</td>
+                    <td>{(stock.peRatio ?? 0).toFixed(2)}</td>
+                    <td>{formatLargeNumber(stock.marketCap ?? 0, stock.symbol)}</td>
+>>>>>>> 7bc85fc (Resolved merge)
                     <td>{(stock.volume ?? 0).toLocaleString('en-US')}</td>
                     <td>
                       <AddButton 

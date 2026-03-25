@@ -1,7 +1,7 @@
-<<<<<<< HEAD
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-<<<<<<< HEAD
+
 # --- Global / OS ---
 .DS_Store
 .DS_Store?
@@ -18,7 +18,7 @@ Thumbs.db
 .idea/
 
 # --- Environment Variables (CRITICAL) ---
-=======
+
 # dependencies
 /node_modules
 /.pnp
@@ -36,7 +36,7 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
-=======
+
 # Python
 __pycache__/
 *.py[cod]
@@ -70,12 +70,12 @@ frontend/.env
 frontend/.env.*
 !.env.example
 !frontend/.env.example
->>>>>>> f7edace (my changes)
+
 
 # Logs
 logs/
 *.log
-<<<<<<< HEAD
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -86,13 +86,13 @@ build_output.txt
 Thumbs.db
 
 # Environments
->>>>>>> sakshi
+
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-<<<<<<< HEAD
+
 backend/.env
 frontend/.env
 frontend/.env.local
@@ -131,17 +131,17 @@ logs/
 nifty.csv
 usa.xlsx
 backend/users.csv
-=======
+
 
 # Data / Temp
 *.csv
 *.xlsx
 *.sqlite3
->>>>>>> sakshi
-=======
+
+
 
 # IDE / OS
 .DS_Store
 .idea/
 .vscode/
->>>>>>> f7edace (my changes)
+

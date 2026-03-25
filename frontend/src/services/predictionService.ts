@@ -184,7 +184,11 @@ export function formatPrediction(result: PredictionResult): {
   confidence: string;
 } {
   return {
+<<<<<<< HEAD
     price: `$${result.predictedPrice.toFixed(2)}`,
+=======
+    price: result.predictedPrice.toFixed(2),
+>>>>>>> 7bc85fc (Resolved merge)
     change: `${result.predictedChange >= 0 ? '+' : ''}${result.predictedChange.toFixed(2)}%`,
     direction: result.direction,
     confidence: `${(result.confidence * 100).toFixed(0)}%`

@@ -13,7 +13,10 @@
     "@types/react-dom": "^19.2.3",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.36",
+<<<<<<< HEAD
     "axios": "^1.13.6",
+=======
+>>>>>>> 7bc85fc (Resolved merge)
     "framer-motion": "^12.34.5",
     "lucide-react": "^0.576.0",
     "react": "^19.2.4",
