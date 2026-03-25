@@ -435,183 +435,163 @@ const Stocks: React.FC = () => {
 const sectors = [
   {
     id: 1,
-    sectorId: 'automobile and auto components',
-    name: 'Auto & Components',
+    sectorId: 'automobile',
+    name: 'Automobile',
     icon: '🚗',
     accent: '#00f2fe',
-    description: 'Automobile manufacturers and auto component suppliers.',
-    tags: ['Automotive', 'Manufacturing'],
-    stats: { companies: 'Dynamic', growth: '+8.2%', marketCap: 'TBD' }
+    description: 'Leading automotive companies and electric vehicle manufacturers driving the future of transportation.',
+    tags: ['EV', 'Manufacturing', 'Global'],
+    stats: { companies: '15', growth: '+8.2%', marketCap: '$2.1T' }
   },
   {
     id: 2,
-    sectorId: 'capital goods',
-    name: 'Capital Goods',
-    icon: '🏭',
-    accent: '#ff4081',
-    description: 'Industrial products, machinery, and equipment manufacturing.',
-    tags: ['Industrial', 'Engineering'],
-    stats: { companies: 'Dynamic', growth: '+15.5%', marketCap: 'TBD' }
+    sectorId: 'banking',
+    name: 'Banking',
+    icon: '🏦',
+    accent: '#4facfe',
+    description: 'Global banking institutions, investment banks and financial intermediaries powering economic growth.',
+    tags: ['PSU', 'Private', 'Nifty 50'],
+    stats: { companies: '15', growth: '+5.3%', marketCap: '$3.9T' }
   },
   {
     id: 3,
+    sectorId: 'finance',
+    name: 'Finance',
+    icon: '💰',
+    accent: '#b388ff',
+    description: 'Financial services, investment firms, insurance companies and fintech innovators transforming finance.',
+    tags: ['Fintech', 'Insurance', 'NBFC'],
+    stats: { companies: '26', growth: '+6.8%', marketCap: '$4.5T' }
+  },
+  {
+    id: 4,
+    sectorId: 'energy',
+    name: 'Energy',
+    icon: '⚡',
+    accent: '#ff9100',
+    description: 'Oil, gas, power generation, and renewable energy companies driving global energy infrastructure.',
+    tags: ['Renewable', 'Oil & Gas', 'Solar'],
+    stats: { companies: '19', growth: '+9.1%', marketCap: '$3.2T' }
+  },
+  {
+    id: 5,
+    sectorId: 'pharma',
+    name: 'Pharma',
+    icon: '💊',
+    accent: '#00ffa3',
+    description: 'Pharmaceutical companies, biotech firms, and healthcare innovators revolutionizing medicine.',
+    tags: ['Biotech', 'Generic', 'R&D'],
+    stats: { companies: '15', growth: '+7.4%', marketCap: '$2.8T' }
+  },
+  {
+    id: 6,
+    sectorId: 'fmcg',
+    name: 'FMCG',
+    icon: '🛒',
+    accent: '#e040fb',
+    description: 'Fast-moving consumer goods, food, beverages and personal care brands serving daily needs.',
+    tags: ['Consumer', 'Food', 'Personal Care'],
+    stats: { companies: '12', growth: '+4.9%', marketCap: '$1.5T' }
+  },
+  {
+    id: 7,
+    sectorId: 'metals',
+    name: 'Metals',
+    icon: '⛏️',
+    accent: '#78909c',
+    description: 'Steel, aluminum, mining and mineral processing companies supplying to global industries.',
+    tags: ['Mining', 'Steel', 'Aluminum'],
+    stats: { companies: '9', growth: '+11.2%', marketCap: '$2.3T' }
+  },
+  {
+    id: 8,
+    sectorId: 'realty',
+    name: 'Realty',
+    icon: '🏗️',
+    accent: '#ff5252',
+    description: 'Real estate investment trusts, property developers, and construction companies.',
+    tags: ['REIT', 'Commercial', 'Residential'],
+    stats: { companies: '6', growth: '+10.4%', marketCap: '$1.9T' }
+  },
+  {
+    id: 9,
+    sectorId: 'it',
+    name: 'IT',
+    icon: '💻',
+    accent: '#00b0ff',
+    description: 'Software services, product companies and technology consultants driving digital transformation.',
+    tags: ['Software', 'Cloud', 'AI'],
+    stats: { companies: '13', growth: '+12.1%', marketCap: '$4.2T' }
+  },
+  {
+    id: 10,
+    sectorId: 'capital_goods',
+    name: 'Capital Goods',
+    icon: '🏭',
+    accent: '#ff4081',
+    description: 'Industrial manufacturing, heavy engineering, and infrastructure equipment companies.',
+    tags: ['Industrial', 'Manufacturing', 'Infrastructure'],
+    stats: { companies: '17', growth: '+15.5%', marketCap: '$1.7T' }
+  },
+  {
+    id: 11,
+    sectorId: 'telecom',
+    name: 'Telecom',
+    icon: '📡',
+    accent: '#536dfe',
+    description: 'Telecommunications services, network infrastructure and communication providers.',
+    tags: ['5G', 'Network', 'Connectivity'],
+    stats: { companies: '5', growth: '+6.2%', marketCap: '$1.1T' }
+  },
+  {
+    id: 12,
     sectorId: 'chemicals',
     name: 'Chemicals',
     icon: '🧪',
     accent: '#76ff03',
-    description: 'Specialty chemicals, agrochemicals and industrial chemicals.',
-    tags: ['Specialty', 'Agrochem'],
-    stats: { companies: 'Dynamic', growth: '+14.2%', marketCap: 'TBD' }
-  },
-  {
-    id: 4,
-    sectorId: 'constructions',
-    name: 'Constructions',
-    icon: '🏗️',
-    accent: '#ff6e40',
-    description: 'Infrastructure construction and civil engineering projects.',
-    tags: ['Infra', 'EPC'],
-    stats: { companies: 'Dynamic', growth: '+13.8%', marketCap: 'TBD' }
-  },
-  {
-    id: 5,
-    sectorId: 'construction materials',
-    name: 'Const. Materials',
-    icon: '🧱',
-    accent: '#a1887f',
-    description: 'Cement, bricks, and other building materials.',
-    tags: ['Cement', 'Building'],
-    stats: { companies: 'Dynamic', growth: '+7.5%', marketCap: 'TBD' }
-  },
-  {
-    id: 6,
-    sectorId: 'consumer durables',
-    name: 'Consumer Durables',
-    icon: '🧺',
-    accent: '#ffd740',
-    description: 'Electronic appliances and household durable goods.',
-    tags: ['Appliances', 'Electronics'],
-    stats: { companies: 'Dynamic', growth: '+9.5%', marketCap: 'TBD' }
-  },
-  {
-    id: 7,
-    sectorId: 'consumer services',
-    name: 'Consumer Services',
-    icon: '🤝',
-    accent: '#ff80ab',
-    description: 'Retailing, hospitality, and other consumer-facing services.',
-    tags: ['Retail', 'Services'],
-    stats: { companies: 'Dynamic', growth: '+18.4%', marketCap: 'TBD' }
-  },
-  {
-    id: 8,
-    sectorId: 'fast moving consumer goods',
-    name: 'FMCG',
-    icon: '🛒',
-    accent: '#e040fb',
-    description: 'Fast-moving consumer goods and household essentials.',
-    tags: ['Consumer', 'Essentials'],
-    stats: { companies: 'Dynamic', growth: '+4.9%', marketCap: 'TBD' }
-  },
-  {
-    id: 9,
-    sectorId: 'financial services',
-    name: 'Financial Services',
-    icon: '💰',
-    accent: '#b388ff',
-    description: 'Banking, NBFCs, insurance, and other financial institutions.',
-    tags: ['Banking', 'Insurance'],
-    stats: { companies: 'Dynamic', growth: '+6.8%', marketCap: 'TBD' }
-  },
-  {
-    id: 10,
-    sectorId: 'health care',
-    name: 'Healthcare',
-    icon: '💊',
-    accent: '#00ffa3',
-    description: 'Pharmaceuticals, hospitals, and healthcare diagnostics.',
-    tags: ['Pharma', 'Hospitals'],
-    stats: { companies: 'Dynamic', growth: '+7.4%', marketCap: 'TBD' }
-  },
-  {
-    id: 11,
-    sectorId: 'information technology',
-    name: 'IT Services',
-    icon: '💻',
-    accent: '#00b0ff',
-    description: 'Software services and technology consultants.',
-    tags: ['Software', 'Cloud', 'AI'],
-    stats: { companies: 'Dynamic', growth: '+12.1%', marketCap: 'TBD' }
-  },
-  {
-    id: 12,
-    sectorId: 'metals & mining',
-    name: 'Metals & Mining',
-    icon: '⛏️',
-    accent: '#78909c',
-    description: 'Steel, aluminum, and mineral mining companies.',
-    tags: ['Steel', 'Mining'],
-    stats: { companies: 'Dynamic', growth: '+11.2%', marketCap: 'TBD' }
+    description: 'Specialty chemicals, agrochemicals and industrial chemical manufacturers.',
+    tags: ['Agrochem', 'Specialty', 'Export'],
+    stats: { companies: '6', growth: '+14.2%', marketCap: '$0.8T' }
   },
   {
     id: 13,
-    sectorId: 'oil gas and consumable fuels',
-    name: 'Oil & Gas',
-    icon: '🛢️',
-    accent: '#ffb74d',
-    description: 'Oil, natural gas, and other consumable energy fuels.',
-    tags: ['Energy', 'Oil'],
-    stats: { companies: 'Dynamic', growth: '+9.1%', marketCap: 'TBD' }
+    sectorId: 'consumer_durables',
+    name: 'Durables',
+    icon: '🧺',
+    accent: '#ffd740',
+    description: 'Consumer appliances, electronics, and lifestyle products for modern living.',
+    tags: ['Appliances', 'Electronics', 'Lifestyle'],
+    stats: { companies: '6', growth: '+9.5%', marketCap: '$0.6T' }
   },
   {
     id: 14,
-    sectorId: 'power',
-    name: 'Power',
-    icon: '⚡',
-    accent: '#ff9100',
-    description: 'Electricity generation and power distribution companies.',
-    tags: ['Electricity', 'Renewable'],
-    stats: { companies: 'Dynamic', growth: '+5.3%', marketCap: 'TBD' }
+    sectorId: 'construction',
+    name: 'Construction',
+    icon: '🏗️',
+    accent: '#ff6e40',
+    description: 'Cement, infrastructure construction and heavy civil engineering projects.',
+    tags: ['Cement', 'Infra', 'EPC'],
+    stats: { companies: '6', growth: '+13.8%', marketCap: '$1.4T' }
   },
   {
     id: 15,
-    sectorId: 'realty',
-    name: 'Real Estate',
-    icon: '🏘️',
-    accent: '#ff5252',
-    description: 'Real estate developers and property management firms.',
-    tags: ['Property', 'Residential'],
-    stats: { companies: 'Dynamic', growth: '+10.4%', marketCap: 'TBD' }
+    sectorId: 'hospitality',
+    name: 'Hospitality',
+    icon: '🏨',
+    accent: '#7c4dff',
+    description: 'Hotels, restaurants, travel services and food delivery platforms.',
+    tags: ['Hotels', 'Food Delivery', 'Travel'],
+    stats: { companies: '9', growth: '+18.4%', marketCap: '$0.9T' }
   },
   {
     id: 16,
-    sectorId: 'telecommunication',
-    name: 'Telecom',
-    icon: '📡',
-    accent: '#536dfe',
-    description: 'Network providers and communication services.',
-    tags: ['Connectivity', '5G'],
-    stats: { companies: 'Dynamic', growth: '+6.2%', marketCap: 'TBD' }
-  },
-  {
-    id: 17,
-    sectorId: 'textiles',
-    name: 'Textiles',
-    icon: '🧵',
-    accent: '#ba68c8',
-    description: 'Textile manufacturing and garment exports.',
-    tags: ['Garments', 'Exports'],
-    stats: { companies: 'Dynamic', growth: '+4.5%', marketCap: 'TBD' }
-  },
-  {
-    id: 18,
     sectorId: 'us_stocks',
-    name: 'USA Stocks',
+    name: 'US Stocks',
     icon: '🇺🇸',
-    accent: '#ff5252',
-    description: 'Top US companies across technology, finance, and consumer sectors.',
-    tags: ['NASDAQ', 'NYSE', 'Global'],
-    stats: { companies: 'Dynamic', growth: '+12.4%', marketCap: 'TBD' }
+    accent: '#00e5ff',
+    description: 'Direct investment in top US-listed companies like Apple, Microsoft, and Tesla.',
+    tags: ['NYSE', 'NASDAQ', 'S&P 500'],
+    stats: { companies: '20', growth: '+14.2%', marketCap: '$30T+' }
   }
 ];
 

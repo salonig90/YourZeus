@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-<<<<<<< HEAD
+
 /node_modules
 /node_modules_old
 /.pnp
@@ -13,7 +13,7 @@
 # production
 /build
 /dist
-=======
+
 node_modules/
 .pnp/
 .pnp.js
@@ -23,16 +23,16 @@ coverage/
 
 # production
 build/
->>>>>>> f7edace (my changes)
+
 
 # misc
 .DS_Store
 .env
-<<<<<<< HEAD
-=======
+
+
 .env.*
 !.env.example
->>>>>>> f7edace (my changes)
+
 .env.local
 .env.development.local
 .env.test.local
@@ -41,7 +41,7 @@ build/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-<<<<<<< HEAD
-=======
+
+
 pnpm-debug.log*
->>>>>>> f7edace (my changes)
+

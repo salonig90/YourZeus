@@ -3,10 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import PriceTrendChart from '../components/PriceTrendChart';
-import MutualFunds from '../components/MutualFunds';
-import MarketIndices from '../components/MarketIndices';
 import { fetchLiveMetalsPrices, MetalsData } from '../services/metalsApi';
-import { yfinanceService, StockData, NewsItem } from '../services/yfinanceService';
+import { yfinanceService, StockData } from '../services/yfinanceService';
 import { getStaticHistoricalData } from '../services/staticHistoricalData';
 
 /* ─── keyframe animations ─── */
@@ -14,7 +12,6 @@ const float = keyframes`
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-30px) scale(1.05); }
 `;
-//frontend-css
 const pulse = keyframes`
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
@@ -244,7 +241,7 @@ const BaseCard = styled(motion.div)`
   }
 `;
 
-const MarketCard = styled(BaseCard) <{ positive: boolean }>`
+const MarketCard = styled(BaseCard)<{ positive: boolean }>`
   grid-column: span 3;
   display: flex;
   flex-direction: column;
@@ -588,36 +585,12 @@ const StatBox = styled(motion.div)`
   }
 `;
 
-const NewsListCard = styled(BaseCard)`
-  grid-column: span 8;
-  @media (max-width: 1024px) { grid-column: span 12; }
-`;
-
-const NewsItemRow = styled(motion.div)`
-  padding: 1.2rem;
-  background: rgba(255,255,255,0.02);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(0, 242, 254, 0.2);
-    transform: translateX(10px);
-  }
-`;
-
 
 /* ─── component ─── */
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [metals, setMetals] = useState<MetalsData | null>(null);
   const [trending, setTrending] = useState<StockData[]>([]);
-  const [news, setNews] = useState<NewsItem[]>([]);
   const historicalData = getStaticHistoricalData();
 
   useEffect(() => {
@@ -626,13 +599,9 @@ const Home: React.FC = () => {
         const metalsData = await fetchLiveMetalsPrices();
         setMetals(metalsData);
         if (trending.length === 0) {
-          const itStocks = await yfinanceService.getSectorStocks('information technology');
+          const itStocks = await yfinanceService.getSectorStocks('it');
           setTrending(itStocks.slice(0, 5));
         }
-
-        // Load latest news
-        const newsData = await yfinanceService.getNews();
-        setNews(newsData.slice(0, 5));
       } catch (err) {
         console.error('Error loading home data:', err);
       }
@@ -654,11 +623,11 @@ const Home: React.FC = () => {
       >
         <OrbField>
           <Orb size={120} x={10} y={20} delay={0} color="rgba(0,242,254,0.25)" />
-          <Orb size={80} x={75} y={10} delay={1.5} color="rgba(112,40,228,0.3)" />
-          <Orb size={60} x={85} y={70} delay={0.8} color="rgba(0,242,254,0.2)" />
+          <Orb size={80}  x={75} y={10} delay={1.5} color="rgba(112,40,228,0.3)" />
+          <Orb size={60}  x={85} y={70} delay={0.8} color="rgba(0,242,254,0.2)" />
           <Orb size={100} x={20} y={75} delay={2} color="rgba(79,172,254,0.2)" />
-          <Orb size={40} x={50} y={5} delay={1} color="rgba(0,255,163,0.15)" />
-          <Orb size={50} x={60} y={80} delay={2.5} color="rgba(255,46,99,0.15)" />
+          <Orb size={40}  x={50} y={5}  delay={1} color="rgba(0,255,163,0.15)" />
+          <Orb size={50}  x={60} y={80} delay={2.5} color="rgba(255,46,99,0.15)" />
           <RingOrbit />
           <RingOrbit2 />
         </OrbField>
@@ -718,7 +687,7 @@ const Home: React.FC = () => {
       >
         {metals ? (
           <>
-            <MarketCard
+            <MarketCard 
               positive={metals.gold.change >= 0}
               whileHover={{ y: -10, background: 'rgba(255, 255, 255, 0.04)' }}
             >
@@ -728,7 +697,7 @@ const Home: React.FC = () => {
                 {metals.gold.changePercent.toFixed(2)}% VECTOR
               </div>
             </MarketCard>
-            <MarketCard
+            <MarketCard 
               positive={metals.silver.change >= 0}
               whileHover={{ y: -10, background: 'rgba(255, 255, 255, 0.04)' }}
             >
@@ -742,18 +711,32 @@ const Home: React.FC = () => {
         ) : (
           <div style={{ gridColumn: 'span 6', height: '200px', background: 'rgba(255,255,255,0.02)', borderRadius: '40px' }} />
         )}
-
+        
         <MarketCard positive={true} whileHover={{ y: -10, background: 'rgba(255, 255, 255, 0.04)' }}>
           <div className="label">SPX Stream</div>
           <div className="price">5,137.08</div>
           <div className="status">0.80% UPLINK</div>
         </MarketCard>
-
+        
         <MarketCard positive={false} whileHover={{ y: -10, background: 'rgba(255, 255, 255, 0.04)' }}>
           <div className="label">IXIC Stream</div>
           <div className="price">16,274.94</div>
           <div className="status">-0.12% DOWNLINK</div>
         </MarketCard>
+
+        <ChartCard>
+          <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: 900, letterSpacing: '2px', textTransform: 'uppercase' }}>
+              Technical Analysis <span>Neural Stream</span>
+            </h2>
+          </div>
+          <PriceTrendChart 
+            data={historicalData.goldHistory} 
+            title="" 
+            color="#00f2fe" 
+            icon=""
+          />
+        </ChartCard>
 
         <ListCard>
           <h2 style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '2rem' }}>
@@ -766,7 +749,7 @@ const Home: React.FC = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8 + idx * 0.1 }}
-                onClick={() => navigate(`/vectors/${stock.symbol}`)}
+                onClick={() => navigate(`/stocks/${stock.sector || 'it'}`)}
                 style={{
                   padding: '1.2rem',
                   background: 'rgba(255,255,255,0.02)',
@@ -784,7 +767,7 @@ const Home: React.FC = () => {
                   <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>{stock.name}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontWeight: 900, fontFamily: 'JetBrains Mono, monospace' }}>${(stock.currentPrice || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                  <div style={{ fontWeight: 800, fontFamily: 'JetBrains Mono' }}>{yfinanceService.formatStockPrice(stock.currentPrice || 0, stock.symbol)}</div>
                   <div style={{ fontSize: '0.8rem', fontWeight: 800, color: (stock.change || 0) >= 0 ? '#00ffa3' : '#ff2e63' }}>
                     {(stock.change || 0) >= 0 ? '+' : ''}{(stock.changePercent || 0).toFixed(2)}%
                   </div>
@@ -793,41 +776,6 @@ const Home: React.FC = () => {
             ))}
           </div>
         </ListCard>
-
-        <NewsListCard>
-          <h2 style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            Intelligence Stream
-            <Link to="/news" style={{ fontSize: '0.65rem', color: '#00f2fe', textDecoration: 'none', borderBottom: '1px solid currentColor' }}>Full Log →</Link>
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {news.length > 0 ? news.map((item, idx) => (
-              <NewsItemRow
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 + idx * 0.1 }}
-                onClick={() => item.url && window.open(item.url, '_blank')}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div style={{ fontWeight: 900, fontSize: '0.95rem', color: '#fff', lineHeight: '1.3' }}>{item.title}</div>
-                  <div style={{ fontSize: '0.65rem', fontWeight: 900, color: 'rgba(0,242,254,0.6)', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(0,242,254,0.1)', borderRadius: '6px' }}>{item.source}</div>
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>{item.category}</span>
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{item.date}</span>
-                </div>
-              </NewsItemRow>
-            )) : (
-              <div style={{ padding: '2rem', textAlign: 'center', opacity: 0.3 }}>
-                <StatusText>Connecting to Neural Feed...</StatusText>
-              </div>
-            )}
-          </div>
-        </NewsListCard>
-
-        <div style={{ gridColumn: 'span 12', marginTop: '2rem' }}>
-          <MarketIndices />
-        </div>
       </GridContainer>
 
       {/* ───── MARKET MATRIX ───── */}
@@ -840,21 +788,12 @@ const Home: React.FC = () => {
           Market Matrix
         </h2>
         {[
-          { name: 'Automobile', icon: '🚗', path: '/vectors/automobile' },
-          { name: 'Banking', icon: '🏦', path: '/vectors/banking' },
-          { name: 'Finance', icon: '💰', path: '/vectors/finance' },
-          { name: 'Energy', icon: '⚡', path: '/vectors/energy' },
-          { name: 'Pharma', icon: '💊', path: '/vectors/pharma' },
-          { name: 'FMCG', icon: '🛒', path: '/vectors/fmcg' },
-          { name: 'Metals', icon: '⛏️', path: '/vectors/metals' },
-          { name: 'Realty', icon: '🏗️', path: '/vectors/realty' },
-          { name: 'IT', icon: '💻', path: '/vectors/it' },
-          { name: 'Capital Goods', icon: '🏭', path: '/vectors/capital_goods' },
-          { name: 'Telecom', icon: '📡', path: '/vectors/telecom' },
-          { name: 'Chemicals', icon: '🧪', path: '/vectors/chemicals' },
-          { name: 'Durables', icon: '🧺', path: '/vectors/consumer_durables' },
-          { name: 'Construction', icon: '🏗️', path: '/vectors/construction' },
-          { name: 'Hospitality', icon: '🏨', path: '/vectors/hospitality' },
+          { name: 'Automobile', icon: '🚗', path: '/stocks/automobile' },
+          { name: 'Hospitality', icon: '🏨', path: '/stocks/hospitality' },
+          { name: 'Finance', icon: '💼', path: '/stocks/finance' },
+          { name: 'Banking', icon: '🏦', path: '/stocks/banking' },
+          { name: 'Energy', icon: '⚡', path: '/stocks/energy' },
+          { name: 'Pharma', icon: '💊', path: '/stocks/pharma' },
         ].map(item => (
           <MatrixCard key={item.name} onClick={() => navigate(item.path)}>
             <div className="icon">{item.icon}</div>
@@ -862,9 +801,6 @@ const Home: React.FC = () => {
           </MatrixCard>
         ))}
       </GridContainer>
-
-      {/* ───── MUTUAL FUNDS ───── */}
-      <MutualFunds />
 
       {/* ───── GLOBAL INDICES ───── */}
       <h2 style={{ gridColumn: 'span 12', fontSize: '1.2rem', fontWeight: 900, letterSpacing: '2px', textTransform: 'uppercase', margin: '4rem 0 2rem' }}>
@@ -895,7 +831,7 @@ const Home: React.FC = () => {
         <div>
           <div className="title">Technology</div>
           <div className="description">The tech sector is buzzing with innovation, from AI and machine learning to the latest in consumer electronics. Explore the companies shaping our future.</div>
-          <Link to="/vectors/automobile" style={{ color: '#00f2fe', textDecoration: 'none', fontWeight: 700 }}>Explore Vectors →</Link>
+          <Link to="/stocks/automobile" style={{ color: '#00f2fe', textDecoration: 'none', fontWeight: 700 }}>Explore Sectors →</Link>
         </div>
       </SectorSpotlight>
 

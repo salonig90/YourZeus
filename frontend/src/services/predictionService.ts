@@ -184,7 +184,7 @@ export function formatPrediction(result: PredictionResult): {
   confidence: string;
 } {
   return {
-    price: `$${result.predictedPrice.toFixed(2)}`,
+    price: result.predictedPrice.toFixed(2),
     change: `${result.predictedChange >= 0 ? '+' : ''}${result.predictedChange.toFixed(2)}%`,
     direction: result.direction,
     confidence: `${(result.confidence * 100).toFixed(0)}%`

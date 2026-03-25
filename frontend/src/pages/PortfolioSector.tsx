@@ -3,9 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useAuth, PortfolioItem } from '../contexts/AuthContext';
+import { yfinanceService } from '../services/yfinanceService';
 import { predictPrice, calculateDiscount, formatPrediction } from '../services/predictionService';
 import { fetchSectorStockSentiment, SectorSentimentResponse, StockSentimentItem } from '../services/stockSentimentService';
-import { yfinanceService, StockData } from '../services/yfinanceService';
 import PERatioTrendGraph from '../components/PERatioTrendGraph';
 import KMeansVisualization from '../components/KMeansVisualization';
 import PricePredictionGraph from '../components/PricePredictionGraph';
@@ -346,15 +346,12 @@ interface ExtendedStockData extends PortfolioItem {
 const PortfolioSector: React.FC = () => {
   const { sector } = useParams<{ sector: string }>();
   const navigate = useNavigate();
-  const { portfolioBySector, removeFromPortfolio, addToPortfolio } = useAuth();
+  const { portfolioBySector, removeFromPortfolio } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeAnalytics, setActiveAnalytics] = useState<'none' | 'pe' | 'kmeans' | 'prediction' | 'ai_summary' | 'ml_forecast' | 'recommend' | 'table'>('none');
   const [stocksData, setStocksData] = useState<Map<string, ExtendedStockData>>(new Map());
   const [sentimentData, setSentimentData] = useState<SectorSentimentResponse | null>(null);
   const [loadingSentiment, setLoadingSentiment] = useState(false);
-  const [allSectorStocks, setAllSectorStocks] = useState<StockData[]>([]);
-  const [loadingStocks, setLoadingStocks] = useState(false);
-  const [addedSymbols, setAddedSymbols] = useState<Set<string>>(new Set());
 
   const sectorName = sector?.toLowerCase() || '';
   const sectorStocks = useMemo(
@@ -391,18 +388,6 @@ const PortfolioSector: React.FC = () => {
         console.error('Error fetching sentiment:', err);
       } finally {
         setLoadingSentiment(false);
-      }
-    }
-
-    if (type === 'recommend' && allSectorStocks.length === 0) {
-      setLoadingStocks(true);
-      try {
-        const stocks = await yfinanceService.getSectorStocks(sectorName);
-        setAllSectorStocks(stocks);
-      } catch (err) {
-        console.error('Error fetching all sector stocks:', err);
-      } finally {
-        setLoadingStocks(false);
       }
     }
 
@@ -522,7 +507,12 @@ const PortfolioSector: React.FC = () => {
           >
             <StatBox>
               <StatLabel>Total Value</StatLabel>
-              <StatValue>₹{totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</StatValue>
+              <StatValue>
+                {sectorName === 'us_stocks' 
+                  ? `$${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                  : `₹${totalValue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                }
+              </StatValue>
             </StatBox>
             <StatBox>
               <StatLabel>Stocks</StatLabel>
@@ -657,7 +647,9 @@ const PortfolioSector: React.FC = () => {
                         <span style={{ fontWeight: 800, color: '#4ecdc4' }}>{stock.symbol}</span>
                         <TrendIcon size={18} color={prediction.direction === 'up' ? '#00ffa3' : '#ff2e63'} />
                       </div>
-                      <div style={{ fontSize: '1.2rem', fontWeight: 900 }}>${prediction.predictedPrice.toFixed(2)}</div>
+                      <div style={{ fontWeight: 900, fontSize: '1.2rem' }}>
+                        {yfinanceService.formatStockPrice(prediction.predictedPrice, stock.symbol)}
+                      </div>
                       <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
                         Projected 15-day change: 
                         <span style={{ color: prediction.direction === 'up' ? '#00ffa3' : '#ff2e63', marginLeft: '5px' }}>
@@ -677,81 +669,31 @@ const PortfolioSector: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
             >
               <h3 style={{ color: '#4ecdc4', marginTop: 0, marginBottom: '1.5rem' }}>
-                🌟 Recommended Stocks - Full {sectorName.toUpperCase()} Sector List
+                🌟 Zeus Top Recommendations - {sectorName.toUpperCase()}
               </h3>
-              
-              {loadingStocks ? (
-                <div style={{ textAlign: 'center', padding: '2rem' }}>Loading sector stocks...</div>
-              ) : allSectorStocks.length > 0 ? (
-                <TableContainer>
-                   <StockTable>
-                    <thead>
-                      <tr>
-                        <th>Company Name</th>
-                        <th>Symbol</th>
-                        <th>Current Price</th>
-                        <th>Today's Change</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {allSectorStocks.map((stock) => {
-                        const isAdded = sectorStocks.some(s => s.symbol === stock.symbol) || addedSymbols.has(stock.symbol);
-                        return (
-                          <tr key={stock.symbol}>
-                            <td style={{ fontWeight: 800 }}>{stock.name}</td>
-                            <td style={{ color: '#4ecdc4', fontWeight: 600 }}>{stock.symbol}</td>
-                            <PriceCell>₹{(stock.currentPrice || stock.price || 0).toFixed(2)}</PriceCell>
-                            <td style={{ color: (stock.changePercent || 0) >= 0 ? '#00ffa3' : '#ff2e63', fontWeight: 700 }}>
-                              {(stock.changePercent || 0) >= 0 ? '+' : ''}{(stock.changePercent || 0).toFixed(2)}%
-                            </td>
-                            <td>
-                              <AddButton 
-                                onClick={async () => {
-                                  const stockItem = {
-                                    symbol: stock.symbol,
-                                    name: stock.name,
-                                    price: stock.currentPrice || stock.price || 0,
-                                    change: stock.change || 0,
-                                    sector: sectorName,
-                                    addedAt: new Date().toISOString()
-                                  };
-
-                                  // Add to local state via AuthContext (updates UI immediately)
-                                  addToPortfolio(stockItem);
-
-                                  // Sync with backend
-                                  try {
-                                    await fetch(`http://localhost:8000/api/auth/portfolio/add/`, {
-                                      method: 'POST',
-                                      headers: { 'Content-Type': 'application/json' },
-                                      body: JSON.stringify(stockItem)
-                                    });
-                                  } catch (err) {
-                                    console.error('Failed to sync with backend:', err);
-                                  }
-
-                                  setAddedSymbols(prev => new Set(prev).add(stock.symbol));
-                                }}
-                                disabled={isAdded}
-                                style={{ 
-                                  padding: '0.4rem 0.8rem', 
-                                  fontSize: '0.8rem',
-                                  background: isAdded ? 'rgba(255,255,255,0.1)' : undefined,
-                                  color: isAdded ? 'rgba(255,255,255,0.3)' : undefined
-                                }}
-                              >
-                                {isAdded ? 'Added' : '+ Add'}
-                              </AddButton>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </StockTable>
-                </TableContainer>
+              {loadingSentiment ? (
+                <div style={{ textAlign: 'center', padding: '2rem' }}>Scanning for opportunities...</div>
+              ) : sentimentData ? (
+                <RecommendationGrid>
+                  {Object.entries(sentimentData.stocks)
+                    .filter(([_, sent]) => sent.prediction === 'Bullish' && sent.confidence > 60)
+                    .sort((a, b) => b[1].overall_score - a[1].overall_score)
+                    .slice(0, 3)
+                    .map(([symbol, sent]) => (
+                      <RecommendationCard key={symbol} whileHover={{ scale: 1.03 }}>
+                        <div style={{ fontWeight: 900, fontSize: '1.2rem', color: '#fff', marginBottom: '0.5rem' }}>{symbol}</div>
+                        <div style={{ fontSize: '0.8rem', color: '#00ffa3', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                          Strong Buy Signal
+                        </div>
+                        <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)' }}>
+                          Confidence: {sent.confidence}%<br />
+                          Score: {(sent.overall_score * 100).toFixed(1)}% Positive
+                        </div>
+                      </RecommendationCard>
+                    ))}
+                </RecommendationGrid>
               ) : (
-                <div style={{ color: '#ff6b6b' }}>No stocks found for this sector.</div>
+                <div style={{ color: '#ff6b6b' }}>Unable to generate recommendations.</div>
               )}
             </AnalyticsPanel>
           )}
@@ -841,12 +783,12 @@ const PortfolioSector: React.FC = () => {
                       <tr key={stock.symbol}>
                         <td style={{ fontWeight: 600, color: '#4ecdc4' }}>{stock.symbol}</td>
                         <td>{stock.name}</td>
-                        <PriceCell>₹{stock.price.toFixed(2)}</PriceCell>
-                        <td>₹{minPrice.toFixed(2)}</td>
-                        <td>₹{maxPrice.toFixed(2)}</td>
+                        <PriceCell>{yfinanceService.formatStockPrice(stock.price, stock.symbol)}</PriceCell>
+                        <td>{yfinanceService.formatStockPrice(minPrice, stock.symbol)}</td>
+                        <td>{yfinanceService.formatStockPrice(maxPrice, stock.symbol)}</td>
                         <td style={{ color: '#ff9800', fontWeight: 600 }}>{discount.toFixed(1)}%</td>
                         <td>{peRatio.toFixed(2)}</td>
-                        <PriceCell>{formatted.price}</PriceCell>
+                        <PriceCell>{yfinanceService.formatStockPrice(parseFloat(formatted.price), stock.symbol)}</PriceCell>
                         <td style={{ color: prediction.predictedChange >= 0 ? '#00b894' : '#ff6b6b', fontWeight: 600 }}>
                           {formatted.change}
                         </td>

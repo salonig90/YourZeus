@@ -166,7 +166,9 @@ const MutualFunds: React.FC = () => {
             </FundHeader>
             
             <FundPrice>
-              ${fund.currentPrice.toLocaleString()}
+              {yfinanceService.formatStockPrice
+                ? yfinanceService.formatStockPrice(fund.currentPrice, fund.symbol)
+                : `$${fund.currentPrice.toLocaleString()}`}
               <PriceChange positive={fund.change >= 0}>
                 {fund.change >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                 {Math.abs(fund.changePercent).toFixed(2)}%

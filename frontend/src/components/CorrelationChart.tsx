@@ -76,7 +76,7 @@ const CorrelationChart: React.FC<CorrelationChartProps> = ({ data }) => {
   // Calculate regression line endpoints with safeguards
   const minGold = goldPrices.length > 0 ? Math.min(...goldPrices) : 0;
   const maxGold = goldPrices.length > 0 ? Math.max(...goldPrices) : 100;
-  const regressionLine: [{ x: number; y: number }, { x: number; y: number }] = [
+  const regressionLine = [
     { x: minGold, y: regressionSlope * minGold + regressionIntercept },
     { x: maxGold, y: regressionSlope * maxGold + regressionIntercept }
   ];
