@@ -1,0 +1,117 @@
+STOCK_NAME_MAPPING = {
+    # Automobile
+    'TATAMOTORS.NS': 'Tata Motors Limited',
+    'M&M.NS': 'Mahindra & Mahindra Ltd',
+    'MARUTI.NS': 'Maruti Suzuki India Ltd',
+    'BAJAJ-AUTO.NS': 'Bajaj Auto Limited',
+    'HEROMOTOCO.NS': 'Hero MotoCorp Limited',
+    'ASHOKLEY.NS': 'Ashok Leyland Limited',
+    'EICHERMOT.NS': 'Eicher Motors Limited',
+    'TVSMOTOR.NS': 'TVS Motor Company Ltd',
+    'TSLA': 'Tesla, Inc.',
+    'TM': 'Toyota Motor Corporation',
+    'GM': 'General Motors Company',
+    'F': 'Ford Motor Company',
+    
+    # IT
+    'INFY.NS': 'Infosys Limited',
+    'TCS.NS': 'Tata Consultancy Services Ltd',
+    'HCLTECH.NS': 'HCL Technologies Ltd',
+    'WIPRO.NS': 'Wipro Limited',
+    'TECHM.NS': 'Tech Mahindra Limited',
+    'MSFT': 'Microsoft Corporation',
+    'GOOG': 'Alphabet Inc. (Google)',
+    'GOOGL': 'Alphabet Inc. (Google)',
+    'AAPL': 'Apple Inc.',
+    'NVDA': 'NVIDIA Corporation',
+    'AMZN': 'Amazon.com, Inc.',
+    'META': 'Meta Platforms, Inc.',
+    
+    # Banking
+    'HDFCBANK.NS': 'HDFC Bank Limited',
+    'ICICIBANK.NS': 'ICICI Bank Limited',
+    'SBIN.NS': 'State Bank of India',
+    'KOTAKBANK.NS': 'Kotak Mahindra Bank Ltd',
+    'AXISBANK.NS': 'Axis Bank Limited',
+    'JPM': 'JPMorgan Chase & Co.',
+    'BAC': 'Bank of America Corporation',
+    'WFC': 'Wells Fargo & Company',
+    'GS': 'The Goldman Sachs Group, Inc.',
+    
+    # Energy
+    'RELIANCE.NS': 'Reliance Industries Limited',
+    'NTPC.NS': 'NTPC Limited',
+    'POWERGRID.NS': 'Power Grid Corp. of India',
+    'TORNTPOWER.NS': 'Torrent Power Limited',
+    'OIL.NS': 'Oil India Limited',
+    'XOM': 'Exxon Mobil Corporation',
+    'CVX': 'Chevron Corporation',
+    'COP': 'ConocoPhillips',
+    'MPC': 'Marathon Petroleum Corp.',
+    
+    # Pharma
+    'SUNPHARMA.NS': 'Sun Pharmaceutical Industries',
+    'CIPLA.NS': 'Cipla Limited',
+    'DRHP.NS': "Dr. Reddy's Laboratories Ltd",
+    'AUROPHARMA.NS': 'Aurobindo Pharma Limited',
+    'LUPIN.NS': 'Lupin Limited',
+    'JNJ': 'Johnson & Johnson',
+    'UNH': 'UnitedHealth Group Inc.',
+    'PFE': 'Pfizer Inc.',
+    'ABBV': 'AbbVie Inc.',
+    
+    # FMCG
+    'NESTLEIND.NS': 'Nestle India Limited',
+    'BRITANNIA.NS': 'Britannia Industries Limited',
+    'MARICO.NS': 'Marico Limited',
+    'HINDUNILVR.NS': 'Hindustan Unilever Limited',
+    'GODREJCP.NS': 'Godrej Consumer Products Ltd',
+    'PG': 'Procter & Gamble Company',
+    'KO': 'The Coca-Cola Company',
+    'NSRGY': 'Nestle S.A.',
+    'DEO': 'Diageo plc',
+    
+    # Metals
+    'TATASTEEL.NS': 'Tata Steel Limited',
+    'HINDALCO.NS': 'Hindalco Industries Limited',
+    'JSWSTEEL.NS': 'JSW Steel Limited',
+    'NATIONALUM.NS': 'National Aluminium Co. Ltd',
+    'JINDALSTEL.NS': 'Jindal Steel & Power Ltd',
+    'VALE': 'Vale S.A.',
+    'RIO': 'Rio Tinto Group',
+    'SCCO': 'Southern Copper Corporation',
+    'FCX': 'Freeport-McMoRan Inc.',
+    
+    # Finance
+    'BAJFINANCE.NS': 'Bajaj Finance Limited',
+    'HDFC.NS': 'HDFC Asset Management Co.',
+    'MUTHOOTFIN.NS': 'Muthoot Finance Limited',
+    'CHOLAFIN.NS': 'Cholamandalam Investment',
+    'PFC.NS': 'Power Finance Corporation Ltd',
+    'BX': 'Blackstone Inc.',
+    'KKR': 'KKR & Co. Inc.',
+    'BLK': 'BlackRock, Inc.',
+    'AMP': 'Ameriprise Financial, Inc.',
+    
+    # Hospitality
+    'INDHOTEL.NS': 'The Indian Hotels Company Ltd',
+    'EIHOTEL.NS': 'EIH Limited (Oberoi)',
+    'TAJGVK.NS': 'TAJGVK Hotels & Resorts Ltd',
+    'CHALET.NS': 'Chalet Hotels Limited',
+    'LUXIND.NS': 'Lux Industries Limited',
+    'RCL': 'Royal Caribbean Cruises Ltd',
+    'CCL': 'Carnival Corporation & plc',
+    'MAR': 'Marriott International, Inc.',
+    'HLT': 'Hilton Worldwide Holdings Inc.',
+    
+    # Realty
+    'DLF.NS': 'DLF Limited',
+    'OBEROI.NS': 'Oberoi Realty Limited',
+    'GPIL.NS': 'Godrej Properties Limited',
+    'SUNTECK.NS': 'Sunteck Realty Limited',
+    'LODHA.NS': 'Macrotech Developers Ltd',
+    'SPG': 'Simon Property Group, Inc.',
+    'PLD': 'Prologis, Inc.',
+    'VNO': 'Vornado Realty Trust',
+    'AMB': 'Ambac Financial Group, Inc.'
+}
